@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="bn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#e2136e">
+<meta name="fp-build" content="0.0.0">
+<meta name="mobile-web-app-capable" content="yes">
+<title>FuNPaY Admin</title>
+<link rel="icon" href="icons/icon-192.png">
+<style>html,body{background:#c40f5e;margin:0}</style>
+<link rel="stylesheet" href="css/admin.css">
+</head><body><div id="app"></div><script>
+/* অ্যাপ লোডার: সেভ করা নতুন (OTA) কোড থাকলে সেটা চালায়। ভাঙা হলে নিজে আগের ভার্সনে ফিরে যায় */
+(function () {
+  var L = null, p = null, b = "0", done = false;
+  try { L = window.localStorage; } catch (e) {}
+  var m = document.querySelector('meta[name="fp-build"]'); if (m) b = m.getAttribute("content") || "0";
+  function nw(a, c) { a = String(a).split("."); c = String(c).split("."); for (var i = 0; i < 3; i++) { var x = +a[i] || 0, y = +c[i] || 0; if (x > y) return true; if (x < y) return false; } return false; }
+  function load(src, txt) { var s = document.createElement("script"); if (src) s.src = src; else s.textContent = txt; document.body.appendChild(s); }
+  try { p = L && JSON.parse(L.getItem("fpota") || "null"); } catch (e) { p = null; }
+  if (p && p.js && nw(p.version, b) && L.getItem("fpbad") !== p.version) {
+    function bad() { if (done || window.__fpready) return; done = true; try { L.setItem("fpbad", p.version); L.removeItem("fpota"); } catch (e) {} location.reload(); }
+    window.addEventListener("error", bad);
+    try { if (p.css) { var c = document.createElement("style"); c.textContent = p.css; document.head.appendChild(c); } load(null, p.js); } catch (e) { bad(); }
+    setTimeout(bad, 6000);
+  } else {
+    if (p && !nw(p.version, b)) { try { L.removeItem("fpota"); } catch (e) {} }
+    load("js/admin.js");
+  }
+})();
+</script></body></html>

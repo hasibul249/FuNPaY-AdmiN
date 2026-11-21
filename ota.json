@@ -1,0 +1,5 @@
+{
+  "version": "1.3.2",
+  "pkg": "https://raw.githubusercontent.com/hasibul249/FuNPaY-AdmiN/ota/app-1.3.2.json",
+  "notes": "অ্যাডমিন অ্যাপ v1.3: ফেস ম্যাচের মিল %, কারণ-চিহ্ন, অটো তালিকা, অটো একসেপ্ট বাতিল, আর নিজে নিজে (OTA) আপডেট।"
+}
